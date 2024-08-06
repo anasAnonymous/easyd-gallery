@@ -4,17 +4,16 @@ import Search from "./components/Search";
 import UploadMedia from "./components/UploadMedia";
 import UploadVedio from "./components/UploadVideo";
 import DeleteMedia from "./components/DeleteMedia";
+import FilterMedia from "./components/FilterMedia";
 
 const MediaPage = () => {
     const [images, setImages] = useState([])
-    // const images = "https://sitechecker.pro/wp-content/uploads/2023/06/404-status-code.png"
     const [searchKeyword, setSearchKeyword] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [pageNo, setPageNo] = useState(1)
   
     const pixabay_key = '45203465-dd64bd109ab9ab2d23ee2b71b'
     useEffect(() => {
-      // https://prathapreddy-mudium.medium.com/vite-react-project-uncaught-referenceerror-process-is-not-defined-at-aa624e343a88
       fetch(`https://pixabay.com/api/?key=${pixabay_key}&q=${searchKeyword}&image_type=photo&pretty=true&per_page=8&page=${pageNo}`)
       .then (response => response.json())
       .then (data => {
@@ -24,7 +23,19 @@ const MediaPage = () => {
       })
       .catch(error => console.log(error))
   
-    }, [searchKeyword, pageNo]) 
+    }, [pageNo]) 
+
+    useEffect(() => {
+      fetch(`https://pixabay.com/api/?key=${pixabay_key}&q=${searchKeyword}&image_type=photo&pretty=true&per_page=8&page=${pageNo}`)
+      .then (response => response.json())
+      .then (data => {
+        setImages(data.hits)
+        setIsLoading(false)
+        console.log(data)
+      })
+      .catch(error => console.log(error))
+  
+    }, [searchKeyword]) 
 
     const handleScroll = async () => {
         console.log("Scroll Top : " + document.documentElement.scrollTop)
@@ -48,11 +59,12 @@ const MediaPage = () => {
     return (
         <div> 
     
-          <div className="flex flex-row py-4">
-            <div className="pr-1 w-9/12">
+          <div className="flex flex-col sm:flex-row py-4">
+            <div className="px-2 sm:w-9/12">
               <Search searchProp={setSearchKeyword} />
             </div>
-            <div className="flex w-3/12 border border-orange-600 rounded-md">
+              
+            <div className="flex space-x-4 mx-2 my-1 sm:w-3/12 sm:my-0 border border-orange-600 rounded-md">
               <div className="flex-1 my-5">
                 <UploadMedia />
               </div>
@@ -63,6 +75,7 @@ const MediaPage = () => {
                 <DeleteMedia />
               </div>
             </div>
+              
           </div>
         
     
@@ -70,7 +83,7 @@ const MediaPage = () => {
           ? 
           <h1 className="text-5xl text-center mx-auto mt-32">Loading ...</h1>
           :
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 lg:gap-4">
               { !!images.length && images.map(image => (
                 <ImageCard key={image.id} image={image} />
               ))}{ <ImageCard /> }
