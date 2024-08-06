@@ -4,7 +4,6 @@ import Search from "./components/Search";
 import UploadMedia from "./components/UploadMedia";
 import UploadVedio from "./components/UploadVideo";
 import DeleteMedia from "./components/DeleteMedia";
-import FilterMedia from "./components/FilterMedia";
 
 const MediaPage = () => {
     const [images, setImages] = useState([])
