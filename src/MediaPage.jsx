@@ -37,9 +37,9 @@ const MediaPage = () => {
     }, [searchKeyword]) 
 
     const handleScroll = async () => {
-        console.log("Scroll Top : " + document.documentElement.scrollTop)
-        console.log("Window Height : " + window.innerHeight)
-        console.log("Scroll Height : " + document.documentElement.scrollHeight)
+        console.log("Scroll Top: " + document.documentElement.scrollTop)
+        console.log("Window Height: " + window.innerHeight)
+        console.log("Scroll Height: " + document.documentElement.scrollHeight)
         const check = document.documentElement.scrollTop + window.innerHeight + 1
         try {
             { check >= document.documentElement.scrollHeight ? 
