@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import "./App.css";
-import MediaPage from "./MediaPage";
+import MediaPage from "./pages/MediaPage";
 
 const App = () => {
 
